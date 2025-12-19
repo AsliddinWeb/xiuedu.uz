@@ -31,6 +31,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Tailwind
+    'tailwind',
+    'theme',
+    'django_browser_reload',
+
+    # Local APPS
+    'apps.core',
+    'apps.about',
+    'apps.faculties',
+    'apps.education',
+    'apps.admission',
+    'apps.students',
+    'apps.science',
+    'apps.international',
+    'apps.news',
+    'apps.gallery',
+    'apps.contact',
+    'apps.accounts',
 ]
 
 MIDDLEWARE = [
@@ -41,6 +60,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # Tailwind
+    'django_browser_reload.middleware.BrowserReloadMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -55,6 +77,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # Core
+                'apps.core.context_processors.site_settings',
             ],
         },
     },
@@ -110,6 +135,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '../media/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Auth model
+AUTH_USER_MODEL = 'accounts.User'
+
+# Auth
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'core:home'
+LOGOUT_REDIRECT_URL = 'core:home'
+
 # Telegram bot
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
+
+# Tailwind
+TAILWIND_APP_NAME = 'theme'
+NPM_BIN_PATH = '/usr/local/bin/npm'
+INTERNAL_IPS = ['127.0.0.1']
